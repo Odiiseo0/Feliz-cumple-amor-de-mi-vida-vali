@@ -105,29 +105,37 @@
         .text{
             width:70%;
             max-width:850px;
-            margin:40px auto;
-            font-size:20px;
-            line-height:35px;
+            margin:30px auto;
+            font-size:18px;
+            line-height:32px;
             color:#f5f5f5;
         }
 
         /* ============================
-           BOTÓN
+           BOTONES
         ============================ */
-        #start{
-            padding:18px 50px;
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .action-btn{
+            padding:15px 35px;
             border:none;
             border-radius:50px;
             background:#ff4fa0;
             color:white;
-            font-size:22px;
+            font-size:18px;
             cursor:pointer;
             transition:.4s;
             position:relative;
             overflow:hidden;
         }
 
-        #start::before{
+        .action-btn::before{
             content:"";
             position:absolute;
             width:0;
@@ -138,17 +146,17 @@
             transition:.5s;
         }
 
-        #start:hover{
-            transform:scale(1.1);
+        .action-btn:hover{
+            transform:scale(1.05);
             box-shadow: 0 0 30px hotpink, 0 0 60px deeppink;
         }
 
-        #start:hover::before{
+        .action-btn:hover::before{
             width:100%;
         }
 
         /* ============================
-           CARTA
+           CARTAS / MODALES
         ============================ */
         .letter{
             position:fixed;
@@ -168,6 +176,8 @@
         .paper{
             width:700px;
             max-width:90%;
+            max-height:85vh;
+            overflow-y:auto;
             background:white;
             color:#333;
             border-radius:20px;
@@ -182,12 +192,13 @@
         }
 
         .paper p{
-            line-height:35px;
-            font-size:20px;
+            line-height:30px;
+            font-size:18px;
+            text-align:center;
         }
 
-        #close{
-            margin-top:30px;
+        .close-btn{
+            margin-top:25px;
             width:100%;
             padding:15px;
             border:none;
@@ -195,6 +206,7 @@
             color:white;
             border-radius:40px;
             cursor:pointer;
+            font-size:16px;
         }
 
         /* ============================
@@ -368,7 +380,7 @@
 
         @media(max-width:900px){
             .title{ font-size:40px; }
-            .text{ width:90%; font-size:16px; line-height:28px; }
+            .text{ width:90%; font-size:15px; line-height:26px; }
             .photo{ width:110px; height:110px; }
             .moon{ width:120px; height:120px; }
             .planet1{ width:90px; height:90px; }
@@ -395,10 +407,14 @@
             <br><br>
             Cuídate mucho. Te deseo lo mejor, hoy y siempre. Feliz cumpleaños.
         </p>
-        <button id="start">Viajar a nuestro universo 🚀</button>
+        <div class="buttons-container">
+            <button id="start" class="action-btn">Viajar a nuestro universo 🚀</button>
+            <button id="song-btn" class="action-btn">Canción de Rels B 🎶</button>
+        </div>
     </section>
 
-    <div class="letter hidden">
+    <!-- Modal Carta Original -->
+    <div class="letter hidden" id="letter-modal">
         <div class="paper">
             <h2>💌 Una carta para ti</h2>
             <p>
@@ -408,7 +424,37 @@
                 <br><br>
                 Feliz cumpleaños. ❤️
             </p>
-            <button id="close">Cerrar</button>
+            <button class="close-btn" id="close">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Modal Canción Rels B -->
+    <div class="letter hidden" id="song-modal">
+        <div class="paper">
+            <h2>🎶 Lo Que Hay Por Aquí - Rels B</h2>
+            <p>
+                ¿Quién estará besando esos labios?<br>
+                Me tiene pensando, yo antes no era así<br>
+                Seguro es un tipo más guapo que yo<br>
+                Ella era demasiado guapa pa' mi<br><br>
+                Dime de que sirve toda esta ambición<br>
+                Si al llegar no tengo con quien compartir<br>
+                Que no la perdiera mamá me avisó<br>
+                Y yo como un tonto fue el que la perdí<br><br>
+                Ya no tengo a quien mandar esos tiktoks<br>
+                Ni con quién criticar todo antes de dormir<br>
+                Sus amigas dicen que es mejor que yo<br>
+                Y que se la ve mucho mejor así<br><br>
+                Y aunque duela es verdad<br>
+                Porque ser mejor es muy fácil<br>
+                Y pa que iba a volver a buscarme<br>
+                Si no echa de menos lo que hay por aquí<br><br>
+                Amanecí pensando en ti, mi amor<br>
+                Entre a tus redes para ver cómo estás<br>
+                Vi que hace poco cambiaste de look<br>
+                Y aún no borraste las fotos nuestras
+            </p>
+            <button class="close-btn" id="close-song">Cerrar</button>
         </div>
     </div>
 
@@ -424,9 +470,15 @@
 
     <script>
         const startBtn = document.getElementById("start");
+        const songBtn = document.getElementById("song-btn");
         const music = document.getElementById("music");
-        const letter = document.querySelector(".letter");
+        
+        const letterModal = document.getElementById("letter-modal");
+        const songModal = document.getElementById("song-modal");
+        
         const closeBtn = document.getElementById("close");
+        const closeSongBtn = document.getElementById("close-song");
+        
         const typing = document.getElementById("typing");
 
         // Mensaje de mecanografía
@@ -508,14 +560,22 @@
         }
         setInterval(shootingStar, 5000);
 
-        // Controles de botones
+        // Controles de botones (Modales)
         startBtn.addEventListener("click",()=>{
             music.play();
-            letter.classList.remove("hidden");
+            letterModal.classList.remove("hidden");
         });
 
         closeBtn.addEventListener("click",()=>{
-            letter.classList.add("hidden");
+            letterModal.classList.add("hidden");
+        });
+
+        songBtn.addEventListener("click",()=>{
+            songModal.classList.remove("hidden");
+        });
+
+        closeSongBtn.addEventListener("click",()=>{
+            songModal.classList.add("hidden");
         });
 
         // Parallax
