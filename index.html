@@ -213,21 +213,17 @@
         .photo{
             width:160px;
             height:160px;
-            border-radius:50%; /* Esto hace que la foto sea redonda */
+            border-radius:20px;
             overflow:hidden;
             border:4px solid white;
             box-shadow: 0 0 25px pink;
             animation: floating 4s ease-in-out infinite;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
         .photo img{
-            width: 100%;
-            height: 100%;
-            object-fit: cover; /* Esto asegura que la foto cubra el círculo sin deformarse */
-            object-position: center;
+            width:100%;
+            height:100%;
+            object-fit:cover;
         }
 
         /* ============================
@@ -417,9 +413,9 @@
     </div>
 
     <section class="gallery">
-        <div class="photo"><img src="img/IMG_6976.jpeg" alt="Foto 1"></div>
-        <div class="photo"><img src="img/IMG_7380.jpeg" alt="Foto 2"></div>
-        <div class="photo"><img src="img/IMG_9487.jpeg" alt="Foto 3"></div>
+        <div class="photo"><img src="img/foto1.jpg" alt="Foto 1"></div>
+        <div class="photo"><img src="img/foto2.jpg" alt="Foto 2"></div>
+        <div class="photo"><img src="img/foto3.jpg" alt="Foto 3"></div>
     </section>
 
     <audio id="music" loop>
@@ -455,3 +451,179 @@
                 star.style.top = Math.random() * window.innerHeight + "px";
                 star.style.animationDuration = (Math.random() * 3 + 1) + "s";
                 document.body.appendChild(star);
+            }
+        }
+        createStars();
+
+        // Corazones
+        const hearts = ["❤️","💖","💕","💗","💘","💝"];
+        function createHeart(){
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = hearts[Math.floor(Math.random()*hearts.length)];
+            heart.style.left = Math.random()*window.innerWidth+"px";
+            heart.style.fontSize = (20+Math.random()*30)+"px";
+            heart.style.animationDuration = (4+Math.random()*5)+"s";
+            document.body.appendChild(heart);
+            setTimeout(()=> heart.remove(), 9000);
+        }
+        setInterval(createHeart, 350);
+
+        // Flores
+        const flowers = ["🌹","🌸","🌺","🌷","💐","🌼"];
+        function createFlower(){
+            const flower = document.createElement("div");
+            flower.classList.add("flower");
+            flower.innerHTML = flowers[Math.floor(Math.random()*flowers.length)];
+            flower.style.left = Math.random()*window.innerWidth+"px";
+            flower.style.fontSize = (25+Math.random()*25)+"px";
+            flower.style.animationDuration = (6+Math.random()*3)+"s";
+            document.body.appendChild(flower);
+            setTimeout(()=> flower.remove(), 9000);
+        }
+        setInterval(createFlower, 700);
+
+        // Lluvia de Sushi
+        const sushiItems = ["🍣", "🍱", "🍙", "🍥", "🍘", "🥢"];
+        function createSushi() {
+            const sushi = document.createElement("div");
+            sushi.classList.add("flower");
+            sushi.innerHTML = sushiItems[Math.floor(Math.random() * sushiItems.length)];
+            sushi.style.left = Math.random() * window.innerWidth + "px";
+            sushi.style.fontSize = (22 + Math.random() * 25) + "px";
+            sushi.style.animationDuration = (5 + Math.random() * 4) + "s";
+            document.body.appendChild(sushi);
+            setTimeout(() => sushi.remove(), 9000);
+        }
+        setInterval(createSushi, 600);
+
+        // Estrellas fugaces
+        function shootingStar(){
+            const star = document.createElement("div");
+            star.classList.add("shooting-star");
+            star.style.top = Math.random()*300+"px";
+            star.style.left = window.innerWidth+"px";
+            document.body.appendChild(star);
+            setTimeout(()=> star.remove(), 3000);
+        }
+        setInterval(shootingStar, 5000);
+
+        // Controles de botones
+        startBtn.addEventListener("click",()=>{
+            music.play();
+            letter.classList.remove("hidden");
+        });
+
+        closeBtn.addEventListener("click",()=>{
+            letter.classList.add("hidden");
+        });
+
+        // Parallax
+        document.addEventListener("mousemove",(e)=>{
+            const x = (e.clientX/window.innerWidth)-0.5;
+            const y = (e.clientY/window.innerHeight)-0.5;
+            document.querySelector(".moon").style.transform = `translate(${x*20}px,${y*20}px)`;
+            document.querySelector(".planet1").style.transform = `translate(${x*40}px,${y*40}px)`;
+            document.querySelector(".planet2").style.transform = `translate(${-x*30}px,${-y*30}px)`;
+        });
+
+        // Partículas mágicas
+        function createParticle(){
+            const particle = document.createElement("div");
+            particle.classList.add("particle");
+            particle.style.left = Math.random()*window.innerWidth+"px";
+            particle.style.top = Math.random()*window.innerHeight+"px";
+            const colors = ["#ffffff", "#ff8bd4", "#ffe082", "#7df9ff"];
+            particle.style.background = colors[Math.floor(Math.random()*colors.length)];
+            document.body.appendChild(particle);
+            setTimeout(()=> particle.remove(), 5000);
+        }
+        setInterval(createParticle, 150);
+
+        // Nebulosas
+        function createNebulas(){
+            const nebula1 = document.createElement("div");
+            nebula1.classList.add("nebula", "one");
+            const nebula2 = document.createElement("div");
+            nebula2.classList.add("nebula", "two");
+            document.body.appendChild(nebula1);
+            document.body.appendChild(nebula2);
+        }
+        createNebulas();
+
+        // Mariposas
+        const butterflies = ["🦋", "🦋", "✨"];
+        function createButterfly(){
+            const butterfly = document.createElement("div");
+            butterfly.innerHTML = butterflies[Math.floor(Math.random()*butterflies.length)];
+            butterfly.style.position = "fixed";
+            butterfly.style.left = Math.random()*window.innerWidth+"px";
+            butterfly.style.top = Math.random()*window.innerHeight+"px";
+            butterfly.style.fontSize = (25+Math.random()*30)+"px";
+            butterfly.style.zIndex = "30";
+            butterfly.style.animation = "flyButterfly 10s linear forwards";
+            document.body.appendChild(butterfly);
+            setTimeout(()=> butterfly.remove(), 10000);
+        }
+        setInterval(createButterfly, 2500);
+
+        // Fuegos artificiales
+        function fireworks(x,y){
+            for(let i=0; i<60; i++){
+                const spark = document.createElement("div");
+                spark.style.position = "fixed";
+                spark.style.left = x+"px";
+                spark.style.top = y+"px";
+                spark.style.width = "5px";
+                spark.style.height = "5px";
+                spark.style.borderRadius = "50%";
+                spark.style.background = randomColor();
+                spark.style.boxShadow = "0 0 15px white";
+                spark.style.zIndex = "50";
+
+                let angle = Math.random()*Math.PI*2;
+                let distance = 50+Math.random()*150;
+
+                spark.animate([
+                    { transform:"translate(0,0)", opacity:1 },
+                    { transform:`translate(${Math.cos(angle)*distance}px, ${Math.sin(angle)*distance}px)`, opacity:0 }
+                ],{ duration: 1200, easing: "ease-out" });
+
+                document.body.appendChild(spark);
+                setTimeout(()=> spark.remove(), 1200);
+            }
+        }
+
+        function randomColor(){
+            const colors = ["#ff4fa0", "#ffffff", "#ffe082", "#00ffff", "#ff0000", "#9d4edd"];
+            return colors[Math.floor(Math.random()*colors.length)];
+        }
+
+        setInterval(()=>{
+            fireworks(Math.random()*window.innerWidth, Math.random()*window.innerHeight*.6);
+        }, 4000);
+
+        // Gran corazón final
+        function loveExplosion(){
+            const text = document.createElement("div");
+            text.innerHTML = "❤️ FELIZ CUMPLEAÑOS ❤️";
+            text.style.position = "fixed";
+            text.style.top = "50%";
+            text.style.left = "50%";
+            text.style.transform = "translate(-50%,-50%)";
+            text.style.fontSize = "60px";
+            text.style.color = "white";
+            text.style.textAlign = "center";
+            text.style.zIndex = "200";
+            text.style.textShadow = "0 0 20px pink, 0 0 50px red";
+            text.style.animation = "finalMessage 5s forwards";
+            document.body.appendChild(text);
+
+            for(let i=0; i<100; i++) createHeart();
+            setTimeout(()=> text.remove(), 5000);
+        }
+
+        setTimeout(()=> loveExplosion(), 20000);
+    </script>
+</body>
+</html>
